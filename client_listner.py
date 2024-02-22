@@ -66,28 +66,9 @@ class Worker(threading.Thread):
             else:
                 time.sleep(0.1)
                 sleep_time += 0.1
-                if sleep_time > 3.0:
-                    self.remove_every_second_element()
-                    print(self.bits_to_string())
+                if sleep_time > 1.5:
+                    print(self.msg)
                     return
-
-    def remove_every_second_element(self):
-        self.msg = self.msg[::2]
-
-    def bits_to_string(self):
-        try:
-            # Создаем объект bitarray из списка битов
-            bit_array = bitarray(self.msg)
-            # Преобразуем bitarray в байтовую строку
-            byte_string = bit_array.tobytes()
-            # Преобразуем байтовую строку в строку с использованием кодировки UTF-8
-            result = byte_string.decode('utf-8')
-            print("Message:")
-        except:
-            print('Error in convert bits msg to string')
-            result = self.msg
-        return result
-                   
 
 class Agent:
     def __init__(self, callback=None, threads_count = 1):
@@ -116,10 +97,9 @@ def listener():
 
 
 def decoder_hop_limit(pac):
-    covert_message = []
-    if pac.hlim == 15:
+    if pac.hlim == 5:
         return 1
-    elif pac.hlim == 100:
+    elif pac.hlim == 105:
         return 0
     return -1
 
