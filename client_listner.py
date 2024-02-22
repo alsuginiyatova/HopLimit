@@ -66,10 +66,25 @@ class Worker(threading.Thread):
             else:
                 time.sleep(0.1)
                 sleep_time += 0.1
-                if sleep_time > 1.5:
+                if sleep_time > 5.0:
+                    self.msg = self.msg[::2]
                     print(self.msg)
                     return
-
+                    
+    def bits_to_string(self):
+        try:
+            # Создаем объект bitarray из списка битов
+            bit_array = bitarray(self.msg)
+            # Преобразуем bitarray в байтовую строку
+            byte_string = bit_array.tobytes()
+            # Преобразуем байтовую строку в строку с использованием кодировки UTF-8
+            result = byte_string.decode('utf-8')
+            print("Message:")
+        except:
+            print('Error in convert bits msg to string')
+            result = self.msg
+        return result
+                   
 class Agent:
     def __init__(self, callback=None, threads_count = 1):
         self.col = MyConcurrentCollection()
