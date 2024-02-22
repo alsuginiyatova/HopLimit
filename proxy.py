@@ -94,21 +94,6 @@ class Agent:
         for consumer in self.consumers:
             consumer.join()
 
-
-def agent_ttl(covert_message, pkt):
-    if covert_message:
-        ip_header = IP(src=pkt.getlayer(IP).src, dst=pkt.getlayer(IP).dst, ttl=20)
-        udp_header = UDP(sport=pkt['UDP'].sport, dport=65012)
-        packet_cov = ip_header / udp_header / pkt['UDP'].payload
-        print("Send packet")
-        send(packet_cov)
-    else:
-        ip_header = IP(src=pkt.getlayer(IP).src, dst=pkt.getlayer(IP).dst, ttl=200)
-        udp_header = UDP(sport=pkt['UDP'].sport, dport=65012)
-        packet_cov = ip_header / udp_header / pkt['UDP'].payload
-        print("Send packet")
-        send(packet_cov)
-
 def agent_hop_limit(covert_message, pkt):
     if covert_message:
         ip_header = IPv6(src=pkt['IPv6'].src, dst='::1', hlim=15)
