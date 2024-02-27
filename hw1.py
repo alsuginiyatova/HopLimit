@@ -41,7 +41,7 @@ for fn in calculate_fn:
 	n_find = 0
 	bandwidths = []
 	n_x = []
-	for n in range(1, randrange(20, 40)):
+	for n in range(1, 30):
 		bandwidth_for_n = fn(n)
 		if bandwidth_for_n > bandwidth_max:
 			bandwidth_max = bandwidth_for_n
