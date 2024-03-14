@@ -35,3 +35,21 @@ for i in range(len(intervals)):
 fig, ax = plt.subplots()
 ax.bar(distributed_intervals, counts, width=0.3)
 plt.show()
+for i in range(len(times)):
+    if i != len(times) - 1:
+        intervals.append(float(times[i + 1]) - float(times[i]))
+
+print(max(intervals))
+print(statistics.mean(intervals))
+
+covert_message = ''
+for i in range(len(intervals)):
+    if intervals[i] < 1.1:
+        covert_message += '0'
+    else:
+        covert_message += '1'
+string = ''
+for i in range(0, len(covert_message), 8):
+    string += chr(int(covert_message[i:i + 8], 2))
+print(string)
+
