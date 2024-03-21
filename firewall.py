@@ -77,7 +77,7 @@ def agent_normalize(pkt):
     send(packet_cov, count=1)
 
 def agent_fictitious_traffic(pkt):
-    ip_header = IPv6(src=pkt['IPv6'].src, dst='::1')
+    ip_header = IPv6(src=pkt['IPv6'].src, dst='::1', hlim = pkt.hlim)
     udp_header = UDP(sport=pkt['UDP'].sport, dport=SECOND_CLIENT_ADDRESS[1]) 
     packet_cov = ip_header / udp_header / pkt['UDP'].payload
     send(packet_cov, count=1)
